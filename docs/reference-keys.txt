@@ -1,0 +1,9 @@
+prérequis
+importation
+chargement-des-libraries
+importation-des-données
+visualisation-des-données
+régression-linéaire
+partitionnement-réechantillonage
+cross-validation
+meilleurs-hyperparamètres

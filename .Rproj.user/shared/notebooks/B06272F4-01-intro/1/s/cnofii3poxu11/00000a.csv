@@ -1,0 +1,8 @@
+"0",""
+"0","ggplot(urchins,"
+"0","       aes(x=taille,y=largeur,group=regime_alim,color=regime_alim))+"
+"0","  geom_point(size=3)+"
+"0","  geom_smooth(method = ""lm"",se=F)+"
+"0","  theme_bw()+"
+"0","  labs(title = ""regression de la taille des ursins \nen fonction de la largeur de leurs largeurs \npar régime alimentaire"")"
+"0",""

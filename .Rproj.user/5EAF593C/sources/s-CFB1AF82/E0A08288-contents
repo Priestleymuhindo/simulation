@@ -1,0 +1,11 @@
+# Régression Linéaire
+
+Nous allons utiliser un modèle linéaire avec variables qualitatives en mettant en exergue l'interraction car nous avons à la fois un prédicteur continu et un prédicteur catégoriel. Étant donné que les pentes semblent être différentes pour au moins deux des régimes d'alimentation, construisons un modèle qui permet des interactions bidirectionnelles. Spécifier une formule R avec nos variables de cette manière : Formule du modele et package
+
+```{r formule du modele,echo=TRUE,message=FALSE,warning=FALSE}
+
+lm_mod <- 
+  linear_reg() %>% # Précision du modèle
+  set_engine("lm") # Précision du package
+
+```

@@ -1,0 +1,7 @@
+"0","urchins <-read_csv(""https://tidymodels.org/start/models/urchins.csv"") %>% setNames(c(""regime_alim"",""taille"",""largeur"")) %>% "
+"0","  mutate(regime_alim=factor(regime_alim))"
+"0","urchins$regime_alim <- fct_recode(urchins$regime_alim ,"
+"0","                                  ""initial"" = ""Initial"","
+"0","                                  ""Pauvre"" = ""Low"","
+"0","                                  ""Riche"" = ""High"")"
+"0",""

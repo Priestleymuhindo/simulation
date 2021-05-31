@@ -1,0 +1,17 @@
+--- 
+title: "Introduction à la crossvalidation"
+author: "Priestley Muhindo"
+date: "`r Sys.Date()`"
+language: "fr"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+
+---
+
+# Prérequis
+
+
+

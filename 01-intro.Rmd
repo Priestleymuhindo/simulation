@@ -1,0 +1,38 @@
+# Importation de Données {#importation}
+## Chargement des libraries
+
+```{r Chargement  des librairies,echo=TRUE,message=FALSE,warning=FALSE}
+library(tidymodels)  
+
+library(readr)       
+library(broom.mixed) # convertir les résultats en tibble
+library(dotwhisker) # Visualisation de données
+library(forcats)
+```
+
+## importation des données
+
+Les données des oursins issues d'une expériaence au laboratoire
+
+```{r Importation des données,echo=TRUE,message=FALSE,warning=FALSE}
+urchins <-read_csv("https://tidymodels.org/start/models/urchins.csv") %>% setNames(c("regime_alim","taille","largeur")) %>% 
+  mutate(regime_alim=factor(regime_alim))
+urchins$regime_alim <- fct_recode(urchins$regime_alim ,
+                                  "initial" = "Initial",
+                                  "Pauvre" = "Low",
+                                  "Riche" = "High")
+
+```
+
+## Visualisation  des données
+```{r regression linéaire par regime alimentaire,echo=TRUE,message=F,warning=FALSE}
+
+ggplot(urchins,
+       aes(x=taille,y=largeur,group=regime_alim,color=regime_alim))+
+  geom_point(size=3)+
+  geom_smooth(method = "lm",se=F)+
+  theme_bw()+
+  labs(title = "Regréssion de la taille des ursins \nen fonction de la largeur de leurs largeurs \npar régime alimentaire")
+
+```
+ On peut vite remarquer que que la différence se dégage entre les différents régimes alimentaires 

@@ -1,0 +1,6 @@
+"0","urchins <- urchins"
+"0","largeur=taille*regime_alim"
+"0","lm_mod <- "
+"0","  linear_reg() %>% # Précision du modèle"
+"0","  set_engine(""lm"") # Précision du package"
+"0",""

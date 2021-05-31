@@ -1,0 +1,76 @@
+# Télécharger les packages
+library(readr) # Importer les données
+library(dplyr) # Manipulation de données
+library(tidyverse) # Manipulation de données
+library(caret) # Machine learning
+
+
+# Importation des données 
+
+train <- read_csv("train.csv") # Données pour contruire le modèle 
+test <- read_csv("test.csv") # Données pour tester le modèle 
+
+# -------------------------------------------------------------------------
+# Manipulation de données -------------------------------------------------
+# -------------------------------------------------------------------------
+
+full  <- bind_rows(train, test) # Regrouper dans une seul data frame
+
+
+head(full) # Voir les données 
+
+sum(is.na(full)) # Nombre de valeurs manquantes
+
+colMeans(is.na(full)) # Pourcentage de valeurs manquantes de chaque colonne
+
+
+full <- full[!is.na(full$Embarked),] # Supprimer les valeurs manquantes de la variable Embarked
+
+full <- full[!is.na(full$Survived),] # Supprimer les valeurs manquantes de la variable Survived
+
+full[is.na(full$Age),]$Age <- median(full$Age,na.rm = T) # Remplacer les valeurs manquentes de la variable age par la median de l'age
+
+# Sélectionner les données qu'on garde pour la suite de l'analyse
+
+full <- full %>% select(c("Survived","Pclass","Sex","Age","SibSp",
+                          "Parch","Fare","Embarked"))
+
+
+# -------------------------------------------------------------------------
+# Modélisation ------------------------------------------------------------
+# -------------------------------------------------------------------------
+
+set.seed(222) # Parametrer un seed aléatoire 
+
+# Rediviser les données en train (75%) et test 
+
+smp_size <- floor(0.75 * nrow(full))
+train_ind <- sample(seq_len(nrow(full)), size = smp_size)
+
+train <- full[train_ind, ]
+test <- full[-train_ind, ]
+
+
+# Logistic Regression -----------------------------------------------------
+
+
+fitControl <- trainControl(method = "cv", number = 10, savePredictions = TRUE) # Paramètre du modele 
+
+lr_model <- train(factor(Survived) ~ .,
+                  data = train,
+                  method = 'glm', 
+                  family = binomial(),
+                  trControl = fitControl)
+
+summary(lr_model) # Afficher le modele 
+
+# Prévision sur la table test 
+
+prediction_lr <- predict(lr_model, test)
+
+test$Prediction <- prediction_lr
+
+# Matrice de confusion 
+xtab <- table(test$Prediction, test$Survived)
+
+confusionMatrix(xtab)
